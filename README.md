@@ -43,71 +43,68 @@
 # Program:
 #include <stdio.h>
 
-int main()
+void validateDate()
 {
-    int day, month, year;
-    int isValid = 1;
+    int dd, mm, yy;
+    int isLeap = 0;
 
-    // Input date in DD/MM/YYYY format
+    // Step 5 & 6: Read date
     printf("Enter date (DD/MM/YYYY): ");
-    scanf("%d/%d/%d", &day, &month, &year);
+    scanf("%d/%d/%d", &dd, &mm, &yy);
 
-    // Check year
-    if (year < 1)
+    // Step 7: Check year
+    if (yy < 1900 || yy > 9999)
     {
-        isValid = 0;
+        printf("Year is not valid\n");
+        return;
     }
-    else
+
+    // Step 8: Check month
+    if (mm < 1 || mm > 12)
     {
-        // Check month
-        if (month < 1 || month > 12)
-        {
-            isValid = 0;
-        }
+        printf("Month is not valid\n");
+        return;
+    }
+
+    // Check leap year
+    if ((yy % 400 == 0) || (yy % 4 == 0 && yy % 100 != 0))
+        isLeap = 1;
+
+    // Step 9, 10, 11: Check day
+    if (mm == 1 || mm == 3 || mm == 5 || mm == 7 ||
+        mm == 8 || mm == 10 || mm == 12)
+    {
+        if (dd >= 1 && dd <= 31)
+            printf("Date is valid\n");
         else
-        {
-            // Check day based on month
-            if (month == 2)
-            {
-                // Leap year check
-                if ((year % 400 == 0) ||
-                    (year % 4 == 0 && year % 100 != 0))
-                {
-                    if (day < 1 || day > 29)
-                        isValid = 0;
-                }
-                else
-                {
-                    if (day < 1 || day > 28)
-                        isValid = 0;
-                }
-            }
-            else if (month == 4 || month == 6 ||
-                     month == 9 || month == 11)
-            {
-                if (day < 1 || day > 30)
-                    isValid = 0;
-            }
-            else
-            {
-                if (day < 1 || day > 31)
-                    isValid = 0;
-            }
-        }
+            printf("Date is invalid\n");
     }
-
-    // Output result
-    if (isValid)
-        printf("The entered date is VALID.\n");
-    else
-        printf("The entered date is INVALID.\n");
-
-    return 0;
+    else if (mm == 4 || mm == 6 || mm == 9 || mm == 11)
+    {
+        if (dd >= 1 && dd <= 30)
+            printf("Date is valid\n");
+        else
+            printf("Date is invalid\n");
+    }
+    else if (mm == 2)
+    {
+        if ((isLeap && dd >= 1 && dd <= 29) ||
+            (!isLeap && dd >= 1 && dd <= 28))
+            printf("Date is valid\n");
+        else
+            printf("Date is invalid\n");
+    }
 }
 
+int main()
+{
+    // Step 3: Call the function
+    validateDate();
+    return 0;
+}
 # Output:
-Enter date (DD/MM/YYYY): 29/11/2007
-The entered date is VALID.
+<img width="442" height="265" alt="image" src="https://github.com/user-attachments/assets/2188f16f-aa5c-49d9-a93b-494257068d7d" />
+
 
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
@@ -157,8 +154,6 @@ Thus, the program was implemented and executed successfully, and the required ou
   Stop
 # Program:
 #include <stdio.h>
-
-// Function to find maximum of two numbers
 int max(int a, int b)
 {
     if (a > b)
@@ -166,8 +161,6 @@ int max(int a, int b)
     else
         return b;
 }
-
-// Function to find minimum of two numbers
 int min(int a, int b)
 {
     if (a < b)
@@ -180,26 +173,17 @@ int main()
 {
     int num1, num2;
     int maximum, minimum;
-
-    // Input two numbers
     printf("Enter two numbers: ");
     scanf("%d %d", &num1, &num2);
-
-    // Function calls
     maximum = max(num1, num2);
     minimum = min(num1, num2);
-
-    // Output results
     printf("Maximum value = %d\n", maximum);
     printf("Minimum value = %d\n", minimum);
-
     return 0;
 }
 
 # Output:
-Enter two numbers: 24 21
-Maximum value = 24
-Minimum value = 21
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -249,48 +233,35 @@ Thus, the program was implemented and executed successfully, and the required ou
 # Program:
 #include <stdio.h>
 
-// Function to convert Celsius to Fahrenheit
-float celsiusToFahrenheit(float celsius)
-{
-    return (celsius * 9 / 5) + 32;
-}
-
-// Function to convert Fahrenheit to Celsius
-float fahrenheitToCelsius(float fahrenheit)
-{
-    return (fahrenheit - 32) * 5 / 9;
-}
-
 int main()
 {
-    float celsius, fahrenheit;
-    float fResult, cResult;
+    char choice;
+    float temp, result;
+    scanf("%c", &choice);
 
-    // Input temperature in Celsius
-    printf("Enter temperature in Celsius: ");
-    scanf("%f", &celsius);
+    scanf("%f", &temp);
 
-    // Convert Celsius to Fahrenheit
-    fResult = celsiusToFahrenheit(celsius);
-    printf("Temperature in Fahrenheit = %.2f\n", fResult);
-
-    // Input temperature in Fahrenheit
-    printf("\nEnter temperature in Fahrenheit: ");
-    scanf("%f", &fahrenheit);
-
-    // Convert Fahrenheit to Celsius
-    cResult = fahrenheitToCelsius(fahrenheit);
-    printf("Temperature in Celsius = %.2f\n", cResult);
+    if (choice == 'c')
+    {
+        result = (temp - 32) * 5 / 9;
+        printf("Temperature in Celsius: %.2f\n", result);
+    }
+    else if (choice == 'f')
+    {
+        result = (temp * 9 / 5) + 32;
+        printf("Temperature in Fahrenheit: %.2f\n", result);
+    }
+    else
+    {
+        printf("Invalid choice!\n");
+    }
 
     return 0;
 }
 
 # Output:
-Enter temperature in Celsius: 97
-Temperature in Fahrenheit = 206.60
+<img width="1187" height="352" alt="image" src="https://github.com/user-attachments/assets/12990a4c-0edb-4f4d-aacf-afb1adebe0f0" />
 
-Enter temperature in Fahrenheit: 303
-Temperature in Celsius = 150.56
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -340,75 +311,53 @@ Thus, the program was implemented and executed successfully, and the required ou
 # Program:
 #include <stdio.h>
 
-// User-defined function without return value
-void spiralPrint(int a[4][4])
-{
-    int top = 0, bottom = 3, left = 0, right = 3;
-    int i;
-
-    printf("Spiral order:\n");
-
-    while (top <= bottom && left <= right)
-    {
-        // Print top row
-        for (i = left; i <= right; i++)
-            printf("%d ", a[top][i]);
-        top++;
-
-        // Print right column
-        for (i = top; i <= bottom; i++)
-            printf("%d ", a[i][right]);
-        right--;
-
-        // Print bottom row
-        if (top <= bottom)
-        {
-            for (i = right; i >= left; i--)
-                printf("%d ", a[bottom][i]);
-            bottom--;
-        }
-
-        // Print left column
-        if (left <= right)
-        {
-            for (i = bottom; i >= top; i--)
-                printf("%d ", a[i][left]);
-            left++;
-        }
-    }
-
-    printf("\n");
-}
-
 int main()
 {
-    int matrix[4][4];
-    int i, j;
-
-    // Input matrix
-    printf("Enter elements of 4x4 matrix:\n");
-    for (i = 0; i < 4; i++)
-    {
-        for (j = 0; j < 4; j++)
-        {
-            scanf("%d", &matrix[i][j]);
+    int r,c;
+    int a[10][10];
+    int top,bottom,left,right;
+    scanf("%d %d",&r,&c);
+    for(int i=0;i<r;i++){
+        for(int j=0;j<c;j++){
+            scanf("%d",&a[i][j]);
         }
     }
-
-    // Function call
-    spiralPrint(matrix);
-
+    printf("The Matrix is\n");
+    for(int i=0;i<r;i++){
+        for(int j=0;j<c;j++){
+            printf("%d ",a[i][j]);
+        }
+        printf("\n");
+    }
+    top = 0;
+    bottom = r-1;
+    left = 0;
+    right = c-1;
+    printf("Spiral Matrix : ");
+    while(top <= bottom && left <= right){
+        for(int i=left;i<=right;i++)
+        printf("%d ",a[top][i]);
+        top++;
+        for(int i =top;i<=bottom;i++)
+        printf("%d ",a[i][right]);
+        right--;
+        if(top <= bottom){
+            for(int i=right;i>=left;i--)
+            printf("%d ",a[bottom][i]);
+            bottom--;
+        }
+        if(left <= right){
+            for(int i = bottom;i >= top;i--)
+            printf("%d ",a[i][left]);
+            left++;
+            
+        }
+    }
     return 0;
 }
-
 # Output:
-Enter elements of 4x4 matrix:
-1  2  3  4
-5  6  7  8
-9 10 11 12
-13 14 15 16
-Spiral order:
-1 2 3 4 8 12 16 15 14 13 9 5 6 7 11 10 
+<img width="1142" height="411" alt="image" src="https://github.com/user-attachments/assets/d621ca8c-a7ba-4ec0-90c1-3de21437ae02" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -444,63 +393,42 @@ To build a C program to convert a string as described above, using a user-define
  Stop
 # Program:
 #include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-
-// User-defined function without return value
-void convertToUpper(char str[])
-{
-    int i, len;
-
-    len = strlen(str);
-
-    // Convert first character
-    if (len > 0 && isalpha(str[0]))
-        str[0] = toupper(str[0]);
-
-    // Convert characters before and after space
-    for (i = 1; i < len - 1; i++)
-    {
-        if (str[i] == ' ')
-        {
-            if (isalpha(str[i - 1]))
-                str[i - 1] = toupper(str[i - 1]);
-
-            if (isalpha(str[i + 1]))
-                str[i + 1] = toupper(str[i + 1]);
-        }
-    }
-
-    // Convert last character
-    if (len > 1 && isalpha(str[len - 1]))
-        str[len - 1] = toupper(str[len - 1]);
-}
 
 int main()
 {
-    char str[200];
+    char str[100];
+    int i;
 
-    // Input string
-    printf("Enter a string: ");
     fgets(str, sizeof(str), stdin);
 
-    // Remove newline character if present
-    str[strcspn(str, "\n")] = '\0';
+    // Capitalize first character if it is a letter
+    if (str[0] >= 'a' && str[0] <= 'z')
+        str[0] = str[0] - 32;
 
-    // Function call
-    convertToUpper(str);
+    for (i = 1; str[i] != '\0'; i++)
+    {
+        // Capitalize first letter of a word
+        if (str[i-1] == ' ' && str[i] >= 'a' && str[i] <= 'z')
+        {
+            str[i] = str[i] - 32;
+        }
 
-    // Display result
-    printf("\nConverted string:\n%s\n", str);
+        // Capitalize last letter of a word
+        if ((str[i] == ' ' || str[i ] == '\n') &&
+            str[i - 1] >= 'a' && str[i - 1] <= 'z')
+        {
+            str[i - 1] = str[i - 1] - 32;
+        }
+    }
+
+    printf("After Converting String is:%s", str);
 
     return 0;
 }
 
 # Output:
-Enter a string: sakthi
+<img width="1137" height="215" alt="image" src="https://github.com/user-attachments/assets/01157928-7b9e-4350-abc6-768ad8c37021" />
 
-Converted string:
-SakthI
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
