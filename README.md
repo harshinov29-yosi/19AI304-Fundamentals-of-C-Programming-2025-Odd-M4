@@ -41,7 +41,74 @@
 ### Step 14: 
   Stop
 # Program:
+#include <stdio.h>
+
+int main()
+{
+    int day, month, year;
+    int isValid = 1;
+
+    // Input date in DD/MM/YYYY format
+    printf("Enter date (DD/MM/YYYY): ");
+    scanf("%d/%d/%d", &day, &month, &year);
+
+    // Check year
+    if (year < 1)
+    {
+        isValid = 0;
+    }
+    else
+    {
+        // Check month
+        if (month < 1 || month > 12)
+        {
+            isValid = 0;
+        }
+        else
+        {
+            // Check day based on month
+            if (month == 2)
+            {
+                // Leap year check
+                if ((year % 400 == 0) ||
+                    (year % 4 == 0 && year % 100 != 0))
+                {
+                    if (day < 1 || day > 29)
+                        isValid = 0;
+                }
+                else
+                {
+                    if (day < 1 || day > 28)
+                        isValid = 0;
+                }
+            }
+            else if (month == 4 || month == 6 ||
+                     month == 9 || month == 11)
+            {
+                if (day < 1 || day > 30)
+                    isValid = 0;
+            }
+            else
+            {
+                if (day < 1 || day > 31)
+                    isValid = 0;
+            }
+        }
+    }
+
+    // Output result
+    if (isValid)
+        printf("The entered date is VALID.\n");
+    else
+        printf("The entered date is INVALID.\n");
+
+    return 0;
+}
+
 # Output:
+Enter date (DD/MM/YYYY): 29/11/2007
+The entered date is VALID.
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -89,7 +156,50 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 13: 
   Stop
 # Program:
+#include <stdio.h>
+
+// Function to find maximum of two numbers
+int max(int a, int b)
+{
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+
+// Function to find minimum of two numbers
+int min(int a, int b)
+{
+    if (a < b)
+        return a;
+    else
+        return b;
+}
+
+int main()
+{
+    int num1, num2;
+    int maximum, minimum;
+
+    // Input two numbers
+    printf("Enter two numbers: ");
+    scanf("%d %d", &num1, &num2);
+
+    // Function calls
+    maximum = max(num1, num2);
+    minimum = min(num1, num2);
+
+    // Output results
+    printf("Maximum value = %d\n", maximum);
+    printf("Minimum value = %d\n", minimum);
+
+    return 0;
+}
+
 # Output:
+Enter two numbers: 24 21
+Maximum value = 24
+Minimum value = 21
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -137,7 +247,50 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 11: 
  Stop
 # Program:
+#include <stdio.h>
+
+// Function to convert Celsius to Fahrenheit
+float celsiusToFahrenheit(float celsius)
+{
+    return (celsius * 9 / 5) + 32;
+}
+
+// Function to convert Fahrenheit to Celsius
+float fahrenheitToCelsius(float fahrenheit)
+{
+    return (fahrenheit - 32) * 5 / 9;
+}
+
+int main()
+{
+    float celsius, fahrenheit;
+    float fResult, cResult;
+
+    // Input temperature in Celsius
+    printf("Enter temperature in Celsius: ");
+    scanf("%f", &celsius);
+
+    // Convert Celsius to Fahrenheit
+    fResult = celsiusToFahrenheit(celsius);
+    printf("Temperature in Fahrenheit = %.2f\n", fResult);
+
+    // Input temperature in Fahrenheit
+    printf("\nEnter temperature in Fahrenheit: ");
+    scanf("%f", &fahrenheit);
+
+    // Convert Fahrenheit to Celsius
+    cResult = fahrenheitToCelsius(fahrenheit);
+    printf("Temperature in Celsius = %.2f\n", cResult);
+
+    return 0;
+}
+
 # Output:
+Enter temperature in Celsius: 97
+Temperature in Fahrenheit = 206.60
+
+Enter temperature in Fahrenheit: 303
+Temperature in Celsius = 150.56
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -185,7 +338,77 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 7: 
   Stop
 # Program:
+#include <stdio.h>
+
+// User-defined function without return value
+void spiralPrint(int a[4][4])
+{
+    int top = 0, bottom = 3, left = 0, right = 3;
+    int i;
+
+    printf("Spiral order:\n");
+
+    while (top <= bottom && left <= right)
+    {
+        // Print top row
+        for (i = left; i <= right; i++)
+            printf("%d ", a[top][i]);
+        top++;
+
+        // Print right column
+        for (i = top; i <= bottom; i++)
+            printf("%d ", a[i][right]);
+        right--;
+
+        // Print bottom row
+        if (top <= bottom)
+        {
+            for (i = right; i >= left; i--)
+                printf("%d ", a[bottom][i]);
+            bottom--;
+        }
+
+        // Print left column
+        if (left <= right)
+        {
+            for (i = bottom; i >= top; i--)
+                printf("%d ", a[i][left]);
+            left++;
+        }
+    }
+
+    printf("\n");
+}
+
+int main()
+{
+    int matrix[4][4];
+    int i, j;
+
+    // Input matrix
+    printf("Enter elements of 4x4 matrix:\n");
+    for (i = 0; i < 4; i++)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    // Function call
+    spiralPrint(matrix);
+
+    return 0;
+}
+
 # Output:
+Enter elements of 4x4 matrix:
+1  2  3  4
+5  6  7  8
+9 10 11 12
+13 14 15 16
+Spiral order:
+1 2 3 4 8 12 16 15 14 13 9 5 6 7 11 10 
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -220,7 +443,64 @@ To build a C program to convert a string as described above, using a user-define
 ### Step 6: 
  Stop
 # Program:
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+// User-defined function without return value
+void convertToUpper(char str[])
+{
+    int i, len;
+
+    len = strlen(str);
+
+    // Convert first character
+    if (len > 0 && isalpha(str[0]))
+        str[0] = toupper(str[0]);
+
+    // Convert characters before and after space
+    for (i = 1; i < len - 1; i++)
+    {
+        if (str[i] == ' ')
+        {
+            if (isalpha(str[i - 1]))
+                str[i - 1] = toupper(str[i - 1]);
+
+            if (isalpha(str[i + 1]))
+                str[i + 1] = toupper(str[i + 1]);
+        }
+    }
+
+    // Convert last character
+    if (len > 1 && isalpha(str[len - 1]))
+        str[len - 1] = toupper(str[len - 1]);
+}
+
+int main()
+{
+    char str[200];
+
+    // Input string
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+
+    // Remove newline character if present
+    str[strcspn(str, "\n")] = '\0';
+
+    // Function call
+    convertToUpper(str);
+
+    // Display result
+    printf("\nConverted string:\n%s\n", str);
+
+    return 0;
+}
+
 # Output:
+Enter a string: sakthi
+
+Converted string:
+SakthI
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
